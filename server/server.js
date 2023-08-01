@@ -1,8 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
-dotenv.config();
+import colors from 'colors';
+import connectDB from './config/db.js';
 import products from './data/products.js';
-const port = process.env.PORT || 5000;
+
+dotenv.config();
+
+connectDB(); // Connect MongoDB
 
 const app = express();
 
@@ -19,4 +23,6 @@ app.get('/api/products/:id', (req, res) => {
    res.json(product);
 });
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => console.log(`Server running on port ${port}`.yellow.bold));
